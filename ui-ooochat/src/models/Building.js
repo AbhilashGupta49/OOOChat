@@ -1,11 +1,11 @@
 import { BuildingPosition, RoomPosition } from "./Position";
 
 export type BuildingMatrix = BuildingPosition & {
-  matrix: number[][][],
+  buildingMatrix: number[][][],
 };
 
 export type RoomMatrix = RoomPosition & {
-  matrix: number[][],
+  roomMatrix: number[][],
 };
 
 export type RoomMatrixWithFloor = RoomMatrix & {

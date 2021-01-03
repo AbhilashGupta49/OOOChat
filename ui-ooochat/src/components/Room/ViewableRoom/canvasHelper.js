@@ -50,13 +50,13 @@ export const paintViewableRoom = (
   const viewableRoomRowPosition = getViewableRoomPosition(
     position.row,
     viewDistance,
-    position.matrix.length
+    position.roomMatrix.length
   );
 
   const viewableRoomColumnPosition = getViewableRoomPosition(
     position.column,
     viewDistance,
-    position.matrix.length
+    position.roomMatrix.length
   );
 
   for (let row = 0; row < viewableRoomMatrix.length; row += 1) {

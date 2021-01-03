@@ -22,8 +22,9 @@ const ViewableRoom = (props: Props): Component => {
   const canvasRef = useRef(null);
 
   useEffect(() => {
-    const canvas = canvasRef.current;
+    const canvas: HTMLCanvasElement = canvasRef.current;
     if (canvas) {
+      canvas.focus();
       fitCanvasToContainer(canvas);
       paintViewableRoom(canvas, viewableRoomMatrix, position);
     }
@@ -31,7 +32,7 @@ const ViewableRoom = (props: Props): Component => {
 
   return (
     <RoomContainer>
-      <Canvas ref={canvasRef} />
+      <Canvas tabIndex="0" ref={canvasRef} />
     </RoomContainer>
   );
 };
