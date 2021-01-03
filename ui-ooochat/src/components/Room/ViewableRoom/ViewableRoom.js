@@ -1,4 +1,4 @@
-import React, { Component, Dispatch, useEffect, useRef } from "react";
+import React, { Component, useEffect, useRef } from "react";
 import styled from "styled-components";
 import { paintViewableRoom, fitCanvasToContainer } from "./canvasHelper";
 import { RoomMatrixWithFloor } from "../../../models/Building";
@@ -14,21 +14,26 @@ const Canvas = styled.canvas`
 
 type Props = {
   viewableRoomMatrix: number[][],
-  positionDispatcher: Dispatch,
-  currentPosition: RoomMatrixWithFloor,
+  position: RoomMatrixWithFloor,
 };
 
-export const ViewableRoom = (props: Props): Component => {
-  const { viewableRoomMatrix, positionDispatcher, currentPosition } = props;
+const ViewableRoom = (props: Props): Component => {
+  const { viewableRoomMatrix, position } = props;
   const canvasRef = useRef(null);
+
   useEffect(() => {
     const canvas = canvasRef.current;
-    fitCanvasToContainer(canvas);
-    paintViewableRoom(canvas, viewableRoomMatrix, currentPosition);
-  }, []);
+    if (canvas) {
+      fitCanvasToContainer(canvas);
+      paintViewableRoom(canvas, viewableRoomMatrix, position);
+    }
+  });
+
   return (
     <RoomContainer>
       <Canvas ref={canvasRef} />
     </RoomContainer>
   );
 };
+
+export default ViewableRoom;

@@ -1,12 +1,10 @@
 import { BuildingPosition, RoomPosition } from "./Position";
 
-export type BuildingMatrix = {
-  buildingPosition: BuildingPosition,
+export type BuildingMatrix = BuildingPosition & {
   matrix: number[][][],
 };
 
-export type RoomMatrix = {
-  roomPosition: RoomPosition,
+export type RoomMatrix = RoomPosition & {
   matrix: number[][],
 };
 
