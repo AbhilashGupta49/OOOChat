@@ -25,5 +25,6 @@ module.exports = {
     "no-unused-vars": "warn",
     "react/jsx-filename-extension": [1, { extensions: [".js", ".jsx"] }],
     "react/prop-types": "warn",
+    "no-restricted-globals": 0,
   },
 };

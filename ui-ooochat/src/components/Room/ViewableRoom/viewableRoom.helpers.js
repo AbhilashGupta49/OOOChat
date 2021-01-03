@@ -1,5 +1,6 @@
 /* eslint-disable no-param-reassign */
 import { RoomMatrixWithFloor } from "../../../models/Building";
+import roomMappings from "../../../utils/constants/RoomMappings";
 
 export const fitCanvasToContainer = (canvas: HTMLCanvasElement): void => {
   canvas.style.width = "100%";
@@ -35,9 +36,38 @@ const getViewableRoomPosition = (
   return relativePosition;
 };
 
+const paintRoomPoint = (
+  ctx: CanvasRenderingContext2D,
+  value: string,
+  { xPosition, yPosition, scaleHeight, scaleWidth }
+) => {
+  // TODO: add text for other users
+  if (value === roomMappings.WALL) {
+    ctx.fillRect(
+      xPosition - scaleWidth / 2,
+      yPosition - scaleHeight / 2,
+      Math.ceil(scaleWidth),
+      Math.ceil(scaleHeight)
+    );
+  } else if (value === roomMappings.PATH) {
+    console.info("empty");
+  } else if (value.includes("seat:")) {
+    ctx.fillText(
+      `${value.split(":")[1]}'s Seat`,
+      xPosition,
+      yPosition - scaleHeight / 2 + 10
+    );
+    ctx.rect(
+      xPosition - scaleWidth / 2,
+      yPosition - scaleHeight / 2,
+      Math.ceil(scaleWidth),
+      Math.ceil(scaleHeight)
+    );
+  }
+};
 export const paintViewableRoom = (
   canvas: HTMLCanvasElement,
-  viewableRoomMatrix: number[][],
+  viewableRoomMatrix: numstringber[][],
   position: RoomMatrixWithFloor
 ): void => {
   const { scaleHeight, scaleWidth } = getCanvasScale(
@@ -46,6 +76,9 @@ export const paintViewableRoom = (
     viewableRoomMatrix.length
   );
   const ctx = canvas.getContext("2d");
+  ctx.textBaseline = "middle";
+  ctx.textAlign = "center";
+
   const viewDistance = Math.floor(viewableRoomMatrix.length / 2);
   const viewableRoomRowPosition = getViewableRoomPosition(
     position.row,
@@ -59,19 +92,27 @@ export const paintViewableRoom = (
     position.roomMatrix.length
   );
 
+  // const widthRatio = screen.width / (screen.height + screen.width);
+  // console.info(widthRatio);
+
   for (let row = 0; row < viewableRoomMatrix.length; row += 1) {
-    for (let col = 0; col < viewableRoomMatrix[row].length; col += 1) {
-      const xPosition = (col + 1) * scaleWidth;
+    for (let column = 0; column < viewableRoomMatrix[row].length; column += 1) {
+      const xPosition = (column + 1) * scaleWidth;
       const yPosition = (row + 1) * scaleHeight;
       if (
         row === viewableRoomRowPosition &&
-        col === viewableRoomColumnPosition
+        column === viewableRoomColumnPosition
       ) {
-        ctx.fillText("Me", xPosition, yPosition);
+        ctx.fillText("Abhilash", xPosition, yPosition);
       } else {
-        ctx.fillText(viewableRoomMatrix[row][col], xPosition, yPosition);
+        paintRoomPoint(ctx, viewableRoomMatrix[row][column], {
+          xPosition,
+          yPosition,
+          scaleHeight,
+          scaleWidth,
+        });
       }
-      ctx.stroke();
     }
   }
+  ctx.stroke();
 };

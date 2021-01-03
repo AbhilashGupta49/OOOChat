@@ -1,7 +1,7 @@
 import { BuildingPosition } from "../../../models/Position";
 
 const getViewableRoomMatix = (
-  roomMatrix: number[][],
+  roomMatrix: string[][],
   currentPosition: BuildingPosition,
   viewDistance: number
 ) => {

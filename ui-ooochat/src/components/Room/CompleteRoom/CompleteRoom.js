@@ -6,26 +6,26 @@ import Spinner from "../../Common/Spinner/Spinner";
 import usePositionDispatcher from "../../../hooks/usePositionDispatcher";
 import { RoomMatrixWithFloor } from "../../../models/Building";
 
-const mockMatrix: number[][][] = [
+const mockMatrix: string[][][] = [
   [
-    [0, 1, 0, 1, 0, 0, 1, 0, 1, 0],
-    [1, 1, 0, 1, 0, 0, 1, 0, 1, 0],
-    [1, 1, 0, 1, 0, 0, 1, 0, 1, 0],
-    [1, 1, 0, 1, 0, 0, 1, 0, 1, 0],
-    [1, 1, 1, 1, 0, 0, 1, 0, 1, 0],
-    [0, 1, 0, 1, 0, 0, 1, 0, 1, 0],
-    [0, 1, 0, 1, 0, 0, 1, 0, 1, 0],
-    [0, 1, 0, 1, 0, 0, 1, 0, 1, 0],
-    [0, 1, 0, 1, 0, 0, 1, 0, 1, 0],
-    [0, 1, 0, 1, 0, 0, 1, 0, 1, 0],
+    [1, 1, 0, 1, 0, 0, 1, 0, 1, 1],
+    [1, 0, 0, 1, 0, 0, 1, 0, 0, 1],
+    [0, 0, 0, 1, 0, 0, 1, 0, 0, 1],
+    [1, 0, "seat:Abhilash", 1, 0, 0, 1, 1, 0, 1],
+    [0, 0, 1, 1, "users:[Another]", 0, 1, 1, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 1, 1, 0, 0, 1, 1, 0, 0],
+    [1, 0, 1, 1, 0, 0, 1, 1, 0, 1],
+    [1, 0, 0, 1, 0, 0, 1, 0, 0, 1],
+    [1, 1, 0, 1, 0, 0, 1, 0, 1, 1],
   ],
 ];
 
 const CompleteRoom = (): Component => {
   // TODO: change starting position according to seat and store it in context??
   const startFloor = 0;
-  const startRow = 4;
-  const startColumn = 3;
+  const startRow = 6;
+  const startColumn = 4;
   const viewDistance = 3;
 
   const startingPosition: RoomMatrixWithFloor = {
